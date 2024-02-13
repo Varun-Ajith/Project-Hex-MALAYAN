@@ -1,0 +1,7 @@
+<launch>
+    <!-- Launch the image recognition node -->
+    <node name="image_recognition_node" pkg="my_image_recognition_package" type="image_recognition_node.py" output="screen">
+        <!-- Set any parameters for your image recognition node -->
+        <param name="camera_topic" value="/camera/image"/>
+    </node>
+</launch>

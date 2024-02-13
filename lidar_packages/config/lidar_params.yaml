@@ -1,0 +1,10 @@
+# Example LiDAR parameters
+lidar_config:
+  min_range: 0.1   # Minimum range threshold (in meters)
+  max_range: 50.0  # Maximum range threshold (in meters)
+  angle_min: -2.0  # Minimum angle of the LiDAR scan (in radians)
+  angle_max: 2.0   # Maximum angle of the LiDAR scan (in radians)
+  angle_increment: 0.05  # Angular distance between consecutive measurements (in radians)
+  scan_time: 0.1   # Time between scans (in seconds)
+  range_min: 0.1   # Minimum valid range (in meters)
+  range_max: 100.0  # Maximum valid range (in meters)

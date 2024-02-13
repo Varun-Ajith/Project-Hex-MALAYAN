@@ -1,0 +1,8 @@
+<launch>
+  <!-- Launch the lidar_listener_node -->
+  <node pkg="my_lidar_package" type="lidar_listener_node.py" name="lidar_listener" output="screen">
+    <!-- You can specify any node-specific parameters here -->
+    <!-- For example, you might specify the LiDAR topic to subscribe to -->
+    <param name="lidar_topic" value="/scan"/>
+  </node>
+</launch>
