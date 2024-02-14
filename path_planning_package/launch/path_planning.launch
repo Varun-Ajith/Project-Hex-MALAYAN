@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="path_planning_package" type="path_planning_node.py" name="path_planning_node" output="screen" />
+
+    <node pkg="lidar_packages" type="lidar_listner.py" name="lidar_listner" output="screen"/>
+</launch>
