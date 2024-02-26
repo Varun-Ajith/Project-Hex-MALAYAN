@@ -1,4 +1,0 @@
-camera_topic = rospy.get_param("~camera_topic", "/camera/image")
-min_neighbors = rospy.get_param("~min_neighbors", 5)
-min_size_width = rospy.get_param("~min_size/width", 30)
-min_size_height = rospy.get_param("~min_size/height", 30)

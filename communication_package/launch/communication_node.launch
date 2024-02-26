@@ -1,8 +1,0 @@
-<launch>
-    <!-- Launch the communication node -->
-    <node name="communication_node" pkg="communication_package" type="communication_node.py" output="screen">
-        <!-- Add any parameters for your communication node -->
-        <!-- For example, you might set the topic for receiving location information -->
-        <param name="location_topic" value="/human_location"/>
-    </node>
-</launch>

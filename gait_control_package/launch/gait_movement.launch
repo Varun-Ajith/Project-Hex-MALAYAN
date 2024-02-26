@@ -1,8 +1,0 @@
-<launch>
-    <!-- Launch the gait movement node -->
-    <node name="gait_movement_node" pkg="gait_control_package" type="gait_movement_node.py" output="screen">
-        <!-- Set any parameters for your gait movement node -->
-        <!-- For example, you might set the topic for receiving velocity commands -->
-        <param name="velocity_topic" value="/cmd_vel"/>
-    </node>
-</launch>
