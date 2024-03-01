@@ -35,10 +35,11 @@ The Hexapod class provides various methods for controlling the movements and act
 
 ## Usage
 You can use the provided functionalities to control the hexapod robot according to your requirements. Adjust the parameters of the methods as needed to customize the movements and actions of the robot.
-# Example usage
-hexapod.walk()
+
+```hexapod.walk()
 hexapod.rotate()
 hexapod.tilt()
+```
 
 
 ## Contributing
