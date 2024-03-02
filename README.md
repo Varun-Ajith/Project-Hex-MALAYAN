@@ -45,6 +45,13 @@ hexapod.tilt()
 ## Contributing
 We welcome contributions! If you have ideas for improvements, new features, or bug fixes, open an issue or submit a pull request.
 
+## Robot in Action
+
+![Hexapod Search and Rescue Robot](Hexapod.gif)
+
+This GIF demonstrates the Hexapod robot navigating through various terrains and environments during a search and rescue operation.
+
+
 ## Credits
 All credits go to Varun Ajith, Ryan Biju Joseph, Pranav Jayan, and Emin Tomson.
 
