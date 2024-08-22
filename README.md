@@ -22,7 +22,7 @@ Contains:
 
 ### 2. `perception_pkg`
 Contains:
-- `human_detection_node.py`: Detects humans using the Pi Camera.
+- `human_detection_node.py`: Detects humans using the Pi Camera. (This havent implemented yet)
 - `lidar_processing_node.py`: Processes LiDAR data for obstacle detection and navigation.
 
 ### 3. `navigation_pkg`
