@@ -4,7 +4,6 @@ from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Float64MultiArray
 
-
 class ObstacleAvoidanceNode(Node):
     def __init__(self):
         super().__init__("obstacle_avoidance")
@@ -18,11 +17,11 @@ class ObstacleAvoidanceNode(Node):
             "movement_commands",
             10)
         
-        self.declare_parameter('safe_distance', 10)
+        self.declare_parameter('safe_distance', 1.0)
         self.safe_distance_ = self.get_parameter('safe_distance').value
 
         self.latest_scan_data = None
-        self.get_logger().info("Obstacle avoidance node has been initialized...")
+        self.get_logger().info("Obstacle avoidance node initialized...")
     
     def lidar_callback(self, msg):
         self.latest_scan_data = msg.ranges
@@ -33,7 +32,7 @@ class ObstacleAvoidanceNode(Node):
             return
         min_distance = min(self.latest_scan_data)
         min_index = self.latest_scan_data.index(min_distance)
-        if min_distance <self.safe_distance_:
+        if min_distance < self.safe_distance_:
             self.get_logger().info(f"Obstacle detected at {min_distance:.2f} meters")
             self.avoid_obstacle(min_index, min_distance)
     
@@ -49,11 +48,11 @@ class ObstacleAvoidanceNode(Node):
         
         self.movement_publisher_.publish(turn_command)
 
-def main(args = None):
-    rclpy.init(args = args)
+def main(args=None):
+    rclpy.init(args=args)
     node = ObstacleAvoidanceNode()
     rclpy.spin(node)
-    node.destroy_node
+    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == "__main__":
