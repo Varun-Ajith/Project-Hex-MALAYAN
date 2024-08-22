@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64
@@ -15,7 +16,7 @@ class CameraServoNode(Node):
         
         self.servo_angle = 90.0
         self.publish_servo_angle()
-        self.get_logger().info("Camera servo initialized, please press 'L' to move left and 'R' to move right and 'Q' to quit")
+        self.get_logger().info("Camera servo initialized. Press 'L' to move left, 'R' to move right, 'Q' to quit.")
         self.listen_for_input()
 
     def listen_for_input(self):
@@ -24,12 +25,12 @@ class CameraServoNode(Node):
             tty.setraw(sys.stdin)
             while True:
                 key = sys.stdin.read(1)
-                if key == 'L' or key =='l':
+                if key in ('L', 'l'):
                     self.move_servo_left()
-                elif key == 'R' or key == 'r':
+                elif key in ('R', 'r'):
                     self.move_servo_right()
-                elif key == 'Q' or key == 'q':
-                    self.get_logger().warn("Quitiing..")
+                elif key in ('Q', 'q'):
+                    self.get_logger().info("Quitting...")
                     break
         finally:
             termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_setting)
@@ -37,24 +38,26 @@ class CameraServoNode(Node):
     def move_servo_left(self):
         if self.servo_angle > 5:
             self.servo_angle -= 5.0
-            self.get_logger().info(f"Servo moved to left to {self.servo_angle} degrees")
+            self.get_logger().info(f"Servo moved left to {self.servo_angle} degrees")
             self.publish_servo_angle()
         else:
-            self.get_logger().info("Servo already set at maximum angle")
+            self.get_logger().info("Servo already at minimum angle")
     
     def move_servo_right(self):
         if self.servo_angle < 175.0:
             self.servo_angle += 5.0
-            self.get_logger().info(f"Servo moved to right to {self.servo_angle} degrees")
+            self.get_logger().info(f"Servo moved right to {self.servo_angle} degrees")
             self.publish_servo_angle()
+        else:
+            self.get_logger().info("Servo already at maximum angle")
     
     def publish_servo_angle(self):
         msg = Float64()
         msg.data = self.servo_angle
         self.servo_publisher_.publish(msg)
 
-def main(args = None):
-    rclpy.init(args = args)
+def main(args=None):
+    rclpy.init(args=args)
     node = CameraServoNode()
     rclpy.spin(node)
     node.destroy_node()
