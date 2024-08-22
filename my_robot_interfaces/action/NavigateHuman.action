@@ -1,0 +1,8 @@
+# Request
+bool navigate
+---
+# Response
+bool success
+---
+# Feedback
+float64 progress
