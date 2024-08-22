@@ -1,4 +1,4 @@
-#!/usr/env/bin python
+#!/usr/bin/env python3
 
 import rclpy
 from rclpy.node import Node
@@ -30,22 +30,25 @@ class MasterNode(Node):
             "joy",
             self.joy_callback,
             10)
+        
         self.navigate_human_client = ActionClient(
             self,
             NavigateHuman,
             "navigate_to_human")
+        
         self.human_detection_client = self.create_client(
             SetBool,
             "toggle_human_detection")
+
         self.get_logger().info("Master node has been initialized...")
 
-    def human_detected_callback(self,msg):
+    def human_detected_callback(self, msg):
         if msg.data:
-            self.get_logger().info("Human detected! starting navigation..")
+            self.get_logger().info("Human detected! Starting navigation...")
             self.start_navigation_to_human()
         else:
             self.get_logger().warn("No human found")
-    
+
     def joy_callback(self, msg):
         twist = Twist()
         twist.linear.x = msg.axes[1] * 0.50
@@ -53,31 +56,37 @@ class MasterNode(Node):
         self.cmd_vel_publisher_.publish(twist)
 
         if msg.buttons[0] == 1:
-            self.camera_controller_publisher_.publish(Bool(data = True))
+            self.camera_controller_publisher_.publish(Bool(data=True))
         elif msg.buttons[1] == 1:
-            self.camera_controller_publisher_.publish(Bool(data = False))
+            self.camera_controller_publisher_.publish(Bool(data=False))
 
     def start_navigation_to_human(self):
+        if not self.navigate_human_client.wait_for_server(timeout_sec=5.0):
+            self.get_logger().error("Action server not available. Cannot start navigation.")
+            return
+
         goal_msg = NavigateHuman.Goal()
         self.navigate_human_client.send_goal_async(goal_msg, feedback_callback=self.navigation_feedback_callback)
 
     def navigation_feedback_callback(self, feedback_msg):
-        self.get_logger().info(f"Navigating to human : {feedback_msg}")
-    
+        self.get_logger().info(f"Navigating to human: {feedback_msg.feedback}")
+
     def toggle_human_detection(self, active: bool):
-        req =  SetBool.Request()
+        if not self.human_detection_client.wait_for_service(timeout_sec=5.0):
+            self.get_logger().error("Service not available. Cannot toggle human detection.")
+            return
+
+        req = SetBool.Request()
         req.data = active
         self.human_detection_client.call_async(req)
-    
-def main(args = None):
-    rclpy.init(args = args)
+        self.get_logger().info(f"Human detection {'activated' if active else 'deactivated'}")
+
+def main(args=None):
+    rclpy.init(args=args)
     node = MasterNode()
     rclpy.spin(node)
-    node.destroy_node
+    node.destroy_node()  # Fixed missing parentheses
     rclpy.shutdown()
 
 if __name__ == "__main__":
     main()
-        
-
-
