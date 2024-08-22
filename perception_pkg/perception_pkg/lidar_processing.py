@@ -40,10 +40,10 @@ class LidarProcessingNode(Node):
         self.get_logger().info("Lidar Processing node initialized...")
     
     def scan_callback(self, msg):
-        if not self.detection_active :
+        if not self.detection_active:
             return
         self.latest_scan_data = np.array(msg.ranges)
-        self.get_logger().info("Recieved scan data..")
+        self.get_logger().info("Received scan data..")
 
         if self.human_detected:
             self.avoid_obstacle()
@@ -59,7 +59,7 @@ class LidarProcessingNode(Node):
     def toggle_human_detection_callback(self, request, response):
         self.detection_active = request.data
         response.success = True
-        response.message = "Human detection "+(" activated " if self.detection_active else "deactivated")
+        response.message = "Human detection " + ("activated" if self.detection_active else "deactivated")
         self.get_logger().info(response.message)
         return response
 
@@ -76,26 +76,26 @@ class LidarProcessingNode(Node):
         if self.latest_scan_data is not None:
             min_distance = np.min(self.latest_scan_data)
             if min_distance < 0.5:
-                self.get_logger().warn("Obstacle detected! Stoppinf or rerouting...")
-                safe_direction =np.argmax(self.latest_scan_data)
+                self.get_logger().warn("Obstacle detected! Stopping or rerouting...")
+                safe_direction = np.argmax(self.latest_scan_data)
                 safe_distance = self.latest_scan_data[safe_direction]
 
                 if safe_distance < 0.5:
                     self.get_logger().info(f"Turning toward safe direction {safe_direction} degrees ")
-                    self.turn_robots(safe_direction)
+                    self.turn_robot(safe_direction)
                 else:
-                    self.get_logger().info("There is no safe route . Stopping the robot...")
+                    self.get_logger().info("There is no safe route. Stopping the robot...")
                     self.stop_robot()
     
     def turn_robot(self, direction):
-        if direction < len(self.latest_scan_data)//2:
-            self.publish_turn_command(left = True)
+        if direction < len(self.latest_scan_data) // 2:
+            self.publish_turn_command(left=True)
         else:
-            self.publish_turn_command(left = False)
+            self.publish_turn_command(left=False)
     
     def stop_robot(self):
-        stop_command =Float64MultiArray()
-        stop_command.data = [0.0]*len(self.latest_scan_data)
+        stop_command = Float64MultiArray()
+        stop_command.data = [0.0] * len(self.latest_scan_data)
         self.publisher_.publish(stop_command)
         self.get_logger().info("Robot stopped!")
     
@@ -113,15 +113,15 @@ class LidarProcessingNode(Node):
         if self.latest_scan_data is not None:
             direction = np.argmin(self.latest_scan_data)
             if self.latest_scan_data[direction] < 0.5:
-                self.get_logger().warn("Path blocked!! finding an alternate way...")
+                self.get_logger().warn("Path blocked! Finding an alternate way...")
                 safe_direction = np.argmax(self.latest_scan_data)
                 self.turn_robot(safe_direction)
             else:
                 self.get_logger().info(f"Moving towards human in {direction} degrees ")       
     
-def main(args = None):
-    rclpy.init(args =args)
-    node =LidarProcessingNode()
+def main(args=None):
+    rclpy.init(args=args)
+    node = LidarProcessingNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
