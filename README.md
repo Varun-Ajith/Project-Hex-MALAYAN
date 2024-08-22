@@ -1,5 +1,4 @@
 # Six legged robot MALAYAN
-# Hexapod Robot Project
 
 ## Overview
 
