@@ -85,7 +85,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = MasterNode()
     rclpy.spin(node)
-    node.destroy_node()  # Fixed missing parentheses
+    node.destroy_node()  
     rclpy.shutdown()
 
 if __name__ == "__main__":
