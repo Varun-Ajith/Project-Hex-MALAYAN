@@ -12,13 +12,21 @@ def generate_launch_description():
         package='hexapod_control_pkg',
         executable='gait_controller'
     )
+    ServoControllerNode = Node(
+        package='hexapod_control_pkg',
+        executable="servo_controller")
+    
     PerceptionNode = Node(
         package='perception_pkg',
-        executable='lidar_processing_node'
+        executable='lidar_processing'
     )
     NavigationNode = Node(
         package='navigation_pkg',
-        executable='pathplanner'
+        executable='path_planning'
+    )
+    ObstacleAvoidanceNode = Node(
+        package="navigation_pkg",
+        executable="obstacle_avoidance"
     )
     CameraServoNode = Node(
         package='camera_servo_pkg',  
@@ -30,5 +38,7 @@ def generate_launch_description():
     ld.add_action(PerceptionNode)
     ld.add_action(NavigationNode)
     ld.add_action(CameraServoNode)
+    ld.add_action(ServoControllerNode)
+    ld.add_action(ObstacleAvoidanceNode)
 
     return ld
