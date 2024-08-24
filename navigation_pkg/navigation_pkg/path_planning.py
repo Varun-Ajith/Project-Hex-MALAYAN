@@ -91,7 +91,7 @@ class PathPlanningNode(Node):
 
     def rrt_star(self, start, goal):
         path = []
-        # Implement RRT* algorithm here
+        #still in work
         return path
 
 def main(args=None):
