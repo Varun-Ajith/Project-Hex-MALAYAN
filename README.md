@@ -78,4 +78,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 
-![Hexapod Search and Rescue Robot](Hexapod.gif)
+![Hexapod Search and Rescue Robot](malayan.gif)
