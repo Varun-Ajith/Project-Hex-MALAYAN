@@ -1,0 +1,6 @@
+# Request
+string mode    # "AUTONOMOUS", "MANUAL", "RETURN_HOME"
+---
+# Response
+bool success
+string message
