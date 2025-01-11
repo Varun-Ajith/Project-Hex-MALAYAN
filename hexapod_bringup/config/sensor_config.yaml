@@ -1,0 +1,22 @@
+imu_node:
+  ros__parameters:
+    frame_id: "imu_link"
+    publish_tf: true
+    coordinate_frame: "ENU"
+    gravity_compensation: true
+
+gps_node:
+  ros__parameters:
+    frame_id: "gps_link"
+    publish_tf: true
+    use_sbas: true
+    dynamic_model: "portable"
+
+camera_node:
+  ros__parameters:
+    frame_id: "camera_link"
+    camera_info_url: "package://hexapod_bringup/config/camera_info.yaml"
+    camera_matrix_fx: 567.229
+    camera_matrix_fy: 568.034
+    camera_matrix_cx: 320.0
+    camera_matrix_cy: 240.0

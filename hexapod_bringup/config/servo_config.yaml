@@ -1,0 +1,13 @@
+servo_controller:
+  ros__parameters:
+    joint_names: [
+      "front_right_hip", "front_right_knee", "front_right_ankle",
+      "front_left_hip", "front_left_knee", "front_left_ankle",
+      "middle_right_hip", "middle_right_knee", "middle_right_ankle",
+      "middle_left_hip", "middle_left_knee", "middle_left_ankle",
+      "rear_right_hip", "rear_right_knee", "rear_right_ankle",
+      "rear_left_hip", "rear_left_knee", "rear_left_ankle"
+    ]
+    servo_channels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    servo_directions: [1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1]
+    servo_offsets: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
