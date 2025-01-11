@@ -1,7 +1,5 @@
 # Six legged robot MALAYAN
 
-# Autonomous Search and Rescue Robot
-
 A ROS2-based autonomous hexapod robot designed for search and rescue operations in disaster scenarios. The robot utilizes advanced sensing and navigation capabilities to locate survivors in challenging environments.
 
 ## Features
